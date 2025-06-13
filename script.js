@@ -14,7 +14,7 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("https://tu-backend-en-render.onrender.com/generar_pdf", {
+    const response = await fetch("https://contrato-backend.onrender.com/generar_pdf", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
