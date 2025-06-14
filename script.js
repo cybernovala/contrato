@@ -4,12 +4,41 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("inicio").value = hoy;
 });
 
-document.getElementById("formulario").addEventListener("submit", async (e) => {
-  e.preventDefault();
+function mostrarVistaPrevia() {
+  const form = document.getElementById("formulario");
+  const vista = document.getElementById("vista-previa");
+  const formVista = document.getElementById("form-vista-previa");
 
-  const form = new FormData(e.target);
+  formVista.innerHTML = ""; // Limpiar
+
+  const formData = new FormData(form);
+  for (const [key, value] of formData.entries()) {
+    const label = document.createElement("label");
+    label.textContent = `${key.replaceAll("_", " ")}:`;
+
+    const input = document.createElement("input");
+    input.name = key;
+    input.value = value;
+    input.required = true;
+
+    label.appendChild(input);
+    formVista.appendChild(label);
+  }
+
+  form.classList.add("hidden");
+  vista.classList.remove("hidden");
+}
+
+function modificar() {
+  document.getElementById("vista-previa").classList.add("hidden");
+  document.getElementById("formulario").classList.remove("hidden");
+}
+
+async function generarPDF() {
+  const formVista = document.getElementById("form-vista-previa");
+  const formData = new FormData(formVista);
   const data = {};
-  for (const [key, value] of form.entries()) {
+  for (const [key, value] of formData.entries()) {
     data[key] = value;
   }
 
@@ -24,7 +53,6 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
 
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
-
     const a = document.createElement("a");
     a.href = url;
     a.download = "contrato.pdf";
@@ -33,4 +61,4 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
   } catch (error) {
     alert("Error al generar el contrato.");
   }
-});
+}
