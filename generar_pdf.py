@@ -51,7 +51,7 @@ EN {ciudad}, A {fecha}, ENTRE {empleador}, RUT {rut_empleador}, CON DOMICILIO EN
     # Firma Empleador centrada
     pdf.cell(0, 10, "__________________________", ln=True, align="C")
     pdf.cell(0, 10, empleador, ln=True, align="C")
-    pdf.cell(0, 10, f"(RUT: {rut_empleador})", ln=True, align="C")
+    pdf.cell(0, 10, f"(RUT- {rut_empleador})", ln=True, align="C")
 
     # Espacio entre firmas
     pdf.ln(20)
