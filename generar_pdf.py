@@ -46,8 +46,8 @@ EN {ciudad}, A {fecha}, ENTRE {empleador}, RUT {rut_empleador}, CON DOMICILIO EN
 FIRMAS:
 
 __________________________                    __________________________
-{empleador}                                   {trabajador}
-(RUT: {rut_empleador})                                      (RUT: {rut_trabajador})
+{empleador}                                       {trabajador}
+(RUT: {rut_empleador})                                          (RUT: {rut_trabajador})
 """
     pdf.multi_cell(0, 10, texto.strip())
 
