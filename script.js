@@ -20,6 +20,8 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
       body: JSON.stringify(data),
     });
 
+    if (!response.ok) throw new Error("Error en el servidor");
+
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 
