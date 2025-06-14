@@ -6,47 +6,55 @@ from datetime import datetime
 def generar_pdf(data):
     pdf = FPDF()
     pdf.add_page()
+    pdf.set_font("Arial", "B", 14)
+    
+    # Título en negrita y centrado
+    pdf.cell(0, 10, "CONTRATO DE TRABAJO", ln=True, align="C")
+    pdf.ln(10)
+
+    # Cambiamos a fuente normal para el resto del texto
     pdf.set_font("Arial", "", 12)
 
-    ciudad = data.get("ciudad", "Los Ángeles")
+    # Datos con valores por defecto y convertidos a mayúsculas
+    ciudad = data.get("ciudad", "Los Ángeles").upper()
     fecha = data.get("fecha", datetime.today().strftime("%d-%m-%Y"))
-    empleador = data.get("empleador", "Juan Pérez Soto")
+    empleador = data.get("empleador", "Juan Pérez Soto").upper()
     rut_empleador = data.get("rut_empleador", "99999999-9")
-    dom_empleador = data.get("domicilio_empleador", "Ficticio n°1")
-    comuna_empleador = data.get("comuna_empleador", "Los Ángeles")
-    trabajador = data.get("trabajador", "Juan Pérez Pérez")
-    nacionalidad = data.get("nacionalidad_trabajador", "Chileno")
-    dom_trabajador = data.get("domicilio_trabajador", "Ficticio n°1")
-    comuna_trabajador = data.get("comuna_trabajador", "Los Ángeles")
+    dom_empleador = data.get("domicilio_empleador", "FICTICIO N°1").upper()
+    comuna_empleador = data.get("comuna_empleador", "Los Ángeles").upper()
+    trabajador = data.get("trabajador", "Juan Pérez Pérez").upper()
+    nacionalidad = data.get("nacionalidad_trabajador", "Chileno").upper()
+    dom_trabajador = data.get("domicilio_trabajador", "FICTICIO N°1").upper()
+    comuna_trabajador = data.get("comuna_trabajador", "Los Ángeles").upper()
     rut_trabajador = data.get("rut_trabajador", "99999999-9")
-    trabajo = data.get("trabajo", "Cuidador de parcela")
-    dir_trabajo = data.get("direccion_trabajo", "Ficticio n°1")
-    comuna_trabajo = data.get("comuna_trabajo", "Los Ángeles")
-    sueldo = data.get("sueldo_bruto", "Sueldo base más bonos, comisiones, horas extras y otros")
+    trabajo = data.get("trabajo", "Cuidador de parcela").upper()
+    dir_trabajo = data.get("direccion_trabajo", "FICTICIO N°1").upper()
+    comuna_trabajo = data.get("comuna_trabajo", "Los Ángeles").upper()
+    sueldo = data.get("sueldo_bruto", "SUELDO BASE MÁS BONOS, COMISIONES, HORAS EXTRAS Y OTROS").upper()
     inicio = data.get("fecha_inicio", datetime.today().strftime("%d-%m-%Y"))
 
-    texto = f"""CONTRATO DE TRABAJO
+    # Texto del contrato en MAYÚSCULAS
+    texto = f"""
+EN {ciudad}, A {fecha}, ENTRE {empleador}, RUT {rut_empleador}, CON DOMICILIO EN {dom_empleador}, COMUNA DE {comuna_empleador}, EN ADELANTE "EL EMPLEADOR", Y DON {trabajador}, DE NACIONALIDAD {nacionalidad}, RUT {rut_trabajador}, CON DOMICILIO EN {dom_trabajador}, COMUNA DE {comuna_trabajador}, EN ADELANTE "EL TRABAJADOR", SE HA CONVENIDO EL SIGUIENTE CONTRATO:
 
-En {ciudad}, a {fecha}, entre {empleador}, RUT {rut_empleador}, con domicilio en {dom_empleador}, comuna de {comuna_empleador}, en adelante "el Empleador", y don {trabajador}, de nacionalidad {nacionalidad}, RUT {rut_trabajador}, con domicilio en {dom_trabajador}, comuna de {comuna_trabajador}, en adelante "el Trabajador", se ha convenido el siguiente contrato:
-
-1. El trabajador se obliga a prestar servicios personales como {trabajo} en {dir_trabajo}, comuna de {comuna_trabajo}.
-2. La jornada y remuneración se determinarán de acuerdo a lo legal.
-3. El sueldo bruto mensual será: {sueldo}.
-4. El presente contrato comenzará a regir desde el {inicio}.
-5. Ambas partes declaran conocer y aceptar el presente contrato.
+1. EL TRABAJADOR SE OBLIGA A PRESTAR SERVICIOS PERSONALES COMO {trabajo} EN {dir_trabajo}, COMUNA DE {comuna_trabajo}.
+2. LA JORNADA Y REMUNERACIÓN SE DETERMINARÁN DE ACUERDO A LO LEGAL.
+3. EL SUELDO BRUTO MENSUAL SERÁ: {sueldo}.
+4. EL PRESENTE CONTRATO COMENZARÁ A REGIR DESDE EL {inicio}.
+5. AMBAS PARTES DECLARAN CONOCER Y ACEPTAR EL PRESENTE CONTRATO.
 
 FIRMAS:
 
-__________________________          __________________________
-{empleador}                            {trabajador}
+__________________________                    __________________________
+{empleador} (RUT: {rut_empleador})            {trabajador} (RUT: {rut_trabajador})
 """
-    pdf.multi_cell(0, 10, texto)
+    pdf.multi_cell(0, 10, texto.strip())
 
-    # CORREGIDO: Generar como string y codificar correctamente
+    # Exportar como string y codificar bien
     pdf_output = pdf.output(dest='S').encode('latin1')
     temp_stream = io.BytesIO(pdf_output)
 
-    # Proteger con contraseña
+    # Agregar protección
     reader = PdfReader(temp_stream)
     writer = PdfWriter()
     writer.append_pages_from_reader(reader)
