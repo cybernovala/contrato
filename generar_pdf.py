@@ -42,11 +42,12 @@ __________________________          __________________________
 """
     pdf.multi_cell(0, 10, texto)
 
-    output = io.BytesIO()
-    pdf.output(output)
-    output.seek(0)
+    # CORREGIDO: Generar como string y codificar correctamente
+    pdf_output = pdf.output(dest='S').encode('latin1')
+    temp_stream = io.BytesIO(pdf_output)
 
-    reader = PdfReader(output)
+    # Proteger con contraseña
+    reader = PdfReader(temp_stream)
     writer = PdfWriter()
     writer.append_pages_from_reader(reader)
     writer.encrypt(user_password="@1234@", owner_password="@1234@")
