@@ -47,7 +47,7 @@ FIRMAS:
 
 __________________________                    __________________________
 {empleador}                                   {trabajador}
-(RUT- {rut_empleador})                                    (RUT- {rut_trabajador})
+(RUT: {rut_empleador})                                      (RUT: {rut_trabajador})
 """
     pdf.multi_cell(0, 10, texto.strip())
 
