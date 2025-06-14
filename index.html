@@ -4,28 +4,72 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contrato Laboral</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 6px;
+      margin-top: 3px;
+      box-sizing: border-box;
+    }
+    button {
+      margin: 10px 5px 0 0;
+      padding: 10px 15px;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none;
+    }
+    #vista-previa input {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <h2>Formulario de Contrato</h2>
+
   <form id="formulario">
-    <label>Ciudad: <input name="ciudad" value="Los Angeles" /></label><br/>
-    <label>Fecha: <input name="fecha" id="fecha" /></label><br/>
-    <label>Empleador: <input name="empleador" value="Juan Perez Soto" /></label><br/>
-    <label>RUT Empleador: <input name="rut_empleador" value="99999999-9" /></label><br/>
-    <label>Domicilio Empleador: <input name="dom_empleador" value="Ficticio n 1" /></label><br/>
-    <label>Comuna Empleador: <input name="com_empleador" value="Los Angeles" /></label><br/>
-    <label>Trabajador: <input name="trabajador" value="Juan Perez Perez" /></label><br/>
-    <label>Nacionalidad: <input name="nacionalidad" value="Chileno" /></label><br/>
-    <label>Domicilio Trabajador: <input name="dom_trabajador" value="Ficticio n 1" /></label><br/>
-    <label>Comuna Trabajador: <input name="com_trabajador" value="Los Angeles" /></label><br/>
-    <label>RUT Trabajador: <input name="rut_trabajador" value="99999999-9" /></label><br/>
-    <label>Trabajo/Servicio: <input name="servicio" value="Cuidador de parcela" /></label><br/>
-    <label>Dirección del trabajo: <input name="dir_trabajo" value="Ficticio n 1" /></label><br/>
-    <label>Comuna del trabajo: <input name="com_trabajo" value="Los Angeles" /></label><br/>
-    <label>Sueldo Bruto: <input name="sueldo" value="Sueldo base más bonos, comisiones, horas extras y otros" /></label><br/>
-    <label>Fecha Inicio Contrato: <input name="fecha_inicio" id="inicio" /></label><br/>
-    <button type="submit">Generar Contrato PDF</button>
+    <!-- Campos del formulario -->
+    <div id="campos">
+      <label>Ciudad: <input name="ciudad" value="Los Angeles" required /></label>
+      <label>Fecha: <input name="fecha" id="fecha" required /></label>
+      <label>Empleador: <input name="empleador" value="Juan Perez Soto" required /></label>
+      <label>RUT Empleador: <input name="rut_empleador" value="99999999-9" required /></label>
+      <label>Domicilio Empleador: <input name="dom_empleador" value="Ficticio n 1" required /></label>
+      <label>Comuna Empleador: <input name="com_empleador" value="Los Angeles" required /></label>
+      <label>Trabajador: <input name="trabajador" value="Juan Perez Perez" required /></label>
+      <label>Nacionalidad: <input name="nacionalidad" value="Chileno" required /></label>
+      <label>Domicilio Trabajador: <input name="dom_trabajador" value="Ficticio n 1" required /></label>
+      <label>Comuna Trabajador: <input name="com_trabajador" value="Los Angeles" required /></label>
+      <label>RUT Trabajador: <input name="rut_trabajador" value="99999999-9" required /></label>
+      <label>Trabajo/Servicio: <input name="servicio" value="Cuidador de parcela" required /></label>
+      <label>Dirección del trabajo: <input name="dir_trabajo" value="Ficticio n 1" required /></label>
+      <label>Comuna del trabajo: <input name="com_trabajo" value="Los Angeles" required /></label>
+      <label>Sueldo Bruto: <input name="sueldo" value="Sueldo base más bonos, comisiones, horas extras y otros" required /></label>
+      <label>Fecha Inicio Contrato: <input name="fecha_inicio" id="inicio" required /></label>
+    </div>
+    <button type="button" onclick="mostrarVistaPrevia()">Vista Previa</button>
   </form>
+
+  <!-- Vista Previa Editable -->
+  <div id="vista-previa" class="hidden">
+    <h3>Vista Previa Editable</h3>
+    <form id="form-vista-previa">
+      <!-- Inputs generados dinámicamente -->
+    </form>
+    <button onclick="modificar()">Modificar</button>
+    <button onclick="generarPDF()">Generar PDF</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
