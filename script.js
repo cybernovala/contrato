@@ -55,7 +55,7 @@ async function generarPDF() {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "contrato.pdf";
+    a.download = "contrato_cybernova.pdf";
     a.click();
     window.URL.revokeObjectURL(url);
   } catch (error) {
