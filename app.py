@@ -14,6 +14,6 @@ def generar():
     return send_file(
         io.BytesIO(pdf_bytes),
         as_attachment=True,
-        download_name="contrato.pdf",
+        download_name="contrato_cybernova.pdf",
         mimetype="application/pdf"
     )
